@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MOKEPON</title>
+
+    <link rel="stylesheet" href="/css/main.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="/js/script.js"></script>
+
+  </head>
+  <body>
+    <h1>MOKEPON</h1>
+
+    <section id="select-pet">
+      <h2>Chose a pet:</h2>
+      <p>PETS
+          <p class="pet__label">
+              <label for="chamaleon">Chamaleon</label>
+              <input type="radio" name="pet" id="chamaleon">
+          </p>
+          <p class="pet__label">
+              <label for="turtle">Turtle</label>
+              <input type="radio" name="pet" id="turtle">
+          </p>
+          <p class="pet__label">
+              <label for="basur">Basur</label>
+              <input type="radio" name="pet" id="basur">
+          </p>
+          <button id="button-pet" class="button__select">Select</button>
+        </p>
+    </section>
+
+    <section id="select-attack">
+      <h2>Chose your attack:</h2>
+
+      <p>Your pet <span id="pet-player"></span>  has <span>3</span> lifes</p>
+      <p>Enemy's pet <span id="pet-enemy"></span> has <span>3</span> lifes</p>
+    </section>
+
+    <section id="messages">
+        <p>Your pet attacks with FIRE, enemy's pet attacks with GROUND - YOU WIN</p>
+    </section>
+
+
+    <p class="button__actions">
+      <button id="button-fire" class="button__attack">FIRE</button>
+      <button id="button-water" class="button__attack">WATER</button>
+      <button id="button-ground" class="button__attack">GROUND</button>
+    </p>
+
+    <section id="reset">
+        <button class="button__reset">RESET</button>
+    </section>
+  </body>
+</html>
