@@ -18,21 +18,21 @@
 
   </head>
   <body>
-    <h1>MOKEPON</h1>
-
-    <section id="select-pet">
-      <h2>Chose a pet:</h2>
+      
+      <section id="select-pet">
+          <h1 id="main-title" class="title">MOKEPON</h1>
+          <h2>Chose a pet:</h2>
       <p>PETS
           <p class="pet__label">
-              <label for="chamaleon" class="chamaleon">Chamaleon</label>
+              <label for="chamaleon" class="pet-label">Chamaleon</label>
               <input type="radio" name="pet" id="chamaleon">
           </p>
           <p class="pet__label">
-              <label for="turtle" class="turtle">Turtle</label>
+              <label for="turtle" class="pet-label">Turtle</label>
               <input type="radio" name="pet" id="turtle">
           </p>
           <p class="pet__label">
-              <label for="basur" class="basur">Basur</label>
+              <label for="basur" class="pet-label">Basur</label>
               <input type="radio" name="pet" id="basur">
           </p>
           <button id="button-pet" class="button__select">Select</button>
@@ -42,23 +42,20 @@
     <section id="select-attack">
       <h2>Chose your attack:</h2>
 
-      <p>Your pet <span id="pet__player"></span>  has <span>3</span> lifes</p>
-      <p>Enemy's pet <span id="pet__enemy"></span> has <span>3</span> lifes</p>
+      <p>Your pet <span id="pet__player"></span>  has <span id="player-pet-life"></span> lifes</p>
+      <p>Enemy's pet <span id="pet__enemy"></span> has <span id="enemy-pet-life"></span> lifes</p>
+      <p class="button__actions">
+          <button id="button__fire" class="button__attack">FIRE</button>
+          <button id="button__water" class="button__attack">WATER</button>
+          <button id="button__ground" class="button__attack">GROUND</button>
+        </p>
+    </section>    
+    
+    <section id="section-reset">
+        <button id="button-reset" class="button__reset">RESET</button>
     </section>
-
     <section id="messages">
-        
-    </section>
 
-
-    <p class="button__actions">
-      <button id="button__fire" class="button__attack">FIRE</button>
-      <button id="button__water" class="button__attack">WATER</button>
-      <button id="button__ground" class="button__attack">GROUND</button>
-    </p>
-
-    <section id="reset">
-        <button class="button__reset">RESET</button>
     </section>
   </body>
 </html>
