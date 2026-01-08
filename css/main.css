@@ -1,9 +1,46 @@
+
+/* VARIABLES  */
+:root {
+    --primary-color-blue: #4988C4 ;
+    --primary-color-dark-blue: #0F2854 ;
+    --primary-color-light-blue: #BDE8F5 ;
+
+    --primary-color-green: #75B06F;
+    --primary-color-dark-green: #36656B ;
+    --primary-color-light-green: #A8DF8E ;
+
+    --primary-color-red: #FA5C5C;
+    --primary-color-dark-red: #9E3B3B ;
+    --primary-color-light-red: #FA6868 ; 
+
+    --primary-color-gray: ;
+    --primary-color-dark-gray: #050E3C ;
+    --primary-color-light-gray: #F3F4F4 ; 
+
+    --primary-color-yellow: #FFEF5F; 
+    --primary-color-dark-yellow: #FBE580 ;
+    --primary-color-light-yellow: #FAEB92 ;
+
+    --primary-color-black: #222222; 
+    --primary-color-dark-black: #313647 ;
+    --primary-color-light-black: #313647 ;
+
+    --primary-color-white: #EFECE3; 
+    --primary-color-dark-white: #E9E3DF ;
+    --primary-color-light-white: #F9F6F3 ;
+    
+}
+
 /* RESET BASICO */
-/* * {
-  margin: 0;
-  padding: 0;
+* {
+  /* margin: 0;
+  padding: 0; */
   font-family: 'Google Sans', sans-serif;
-} */
+}
+
+body {
+    background-color: var(--primary-color-light-red);
+}
 
  #select-pet {
     display: flex;
@@ -14,10 +51,25 @@
     margin: 10px;
 }
 
-.pet-label {
-    background-color: gray;
+.card-pet-label {
+    display: inline-block;
+    background-color: var(--primary-color-blue);
     padding: 10px;
-    color: white;
+    color: var(--primary-color-white);
     width: 100px;
     height: 100px;
+    font-weight: bold;
+    font-size: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+}
+
+.cards {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    display: none;
 }

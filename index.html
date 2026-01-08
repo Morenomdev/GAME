@@ -15,47 +15,48 @@
     />
 
     <script src="/js/script.js"></script>
-
   </head>
   <body>
-      
-      <section id="select-pet">
-          <h1 id="main-title" class="title">MOKEPON</h1>
-          <h2>Chose a pet:</h2>
-      <p>PETS
-          <p class="pet__label">
-              <label for="chamaleon" class="pet-label">Chamaleon</label>
-              <input type="radio" name="pet" id="chamaleon">
-          </p>
-          <p class="pet__label">
-              <label for="turtle" class="pet-label">Turtle</label>
-              <input type="radio" name="pet" id="turtle">
-          </p>
-          <p class="pet__label">
-              <label for="basur" class="pet-label">Basur</label>
-              <input type="radio" name="pet" id="basur">
-          </p>
-          <button id="button-pet" class="button__select">Select</button>
-        </p>
+    <section id="select-pet">
+      <h1 id="main-title" class="title">MOKEPON</h1>
+      <h2>Chose a pet:</h2>
+      <h2>PETS</h2>
+
+      <div class="cards">
+        <label for="chamaleon" class="card-pet-label">Chamaleon</label>
+        <input type="radio" name="pet" id="chamaleon" />
+
+        <label for="turtle" class="card-pet-label">Turtle</label>
+        <input type="radio" name="pet" id="turtle" />
+
+        <label for="basur" class="card-pet-label">Basur</label>
+        <input type="radio" name="pet" id="basur" />
+      </div>
+
+      <button id="button-pet" class="button__select">Select</button>
     </section>
 
     <section id="select-attack">
       <h2>Chose your attack:</h2>
 
-      <p>Your pet <span id="pet__player"></span>  has <span id="player-pet-life"></span> lifes</p>
-      <p>Enemy's pet <span id="pet__enemy"></span> has <span id="enemy-pet-life"></span> lifes</p>
+      <p>
+        Your pet <span id="pet__player"></span> has
+        <span id="player-pet-life"></span> lifes
+      </p>
+      <p>
+        Enemy's pet <span id="pet__enemy"></span> has
+        <span id="enemy-pet-life"></span> lifes
+      </p>
       <p class="button__actions">
-          <button id="button__fire" class="button__attack">FIRE</button>
-          <button id="button__water" class="button__attack">WATER</button>
-          <button id="button__ground" class="button__attack">GROUND</button>
-        </p>
-    </section>    
-    
-    <section id="section-reset">
-        <button id="button-reset" class="button__reset">RESET</button>
+        <button id="button__fire" class="button__attack">FIRE</button>
+        <button id="button__water" class="button__attack">WATER</button>
+        <button id="button__ground" class="button__attack">GROUND</button>
+      </p>
     </section>
-    <section id="messages">
 
+    <section id="section-reset">
+      <button id="button-reset" class="button__reset">RESET</button>
     </section>
+    <section id="messages"></section>
   </body>
 </html>
