@@ -1,34 +1,32 @@
-
 /* VARIABLES  */
 :root {
-    --primary-color-blue: #4988C4 ;
-    --primary-color-dark-blue: #0F2854 ;
-    --primary-color-light-blue: #BDE8F5 ;
+  --primary-color-blue: #4988c4;
+  --primary-color-dark-blue: #0f2854;
+  --primary-color-light-blue: #bde8f5;
 
-    --primary-color-green: #75B06F;
-    --primary-color-dark-green: #36656B ;
-    --primary-color-light-green: #A8DF8E ;
+  --primary-color-green: #75b06f;
+  --primary-color-dark-green: #36656b;
+  --primary-color-light-green: #a8df8e;
 
-    --primary-color-red: #FA5C5C;
-    --primary-color-dark-red: #9E3B3B ;
-    --primary-color-light-red: #FA6868 ; 
+  --primary-color-red: #fa5c5c;
+  --primary-color-dark-red: #9e3b3b;
+  --primary-color-light-red: #fa6868;
 
-    --primary-color-gray: ;
-    --primary-color-dark-gray: #050E3C ;
-    --primary-color-light-gray: #F3F4F4 ; 
+  --primary-color-gray: ;
+  --primary-color-dark-gray: #050e3c;
+  --primary-color-light-gray: #f3f4f4;
 
-    --primary-color-yellow: #FFEF5F; 
-    --primary-color-dark-yellow: #FBE580 ;
-    --primary-color-light-yellow: #FAEB92 ;
+  --primary-color-yellow: #ffef5f;
+  --primary-color-dark-yellow: #fbe580;
+  --primary-color-light-yellow: #faeb92;
 
-    --primary-color-black: #222222; 
-    --primary-color-dark-black: #313647 ;
-    --primary-color-light-black: #313647 ;
+  --primary-color-black: #222222;
+  --primary-color-dark-black: #313647;
+  --primary-color-light-black: #313647;
 
-    --primary-color-white: #EFECE3; 
-    --primary-color-dark-white: #E9E3DF ;
-    --primary-color-light-white: #F9F6F3 ;
-    
+  --primary-color-white: #efece3;
+  --primary-color-dark-white: #e9e3df;
+  --primary-color-light-white: #f9f6f3;
 }
 
 /* RESET BASICO */
@@ -39,37 +37,173 @@
 }
 
 body {
-    background-color: var(--primary-color-light-red);
+  background-color: var(--primary-color-dark-blue);
 }
 
- #select-pet {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid red;
-    margin: 10px;
+#select-pet,
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--primary-color-light-gray);
+  padding: 10px;
+  margin: 10px;
+}
+
+.title,
+.subtitle-chose,
+.subtitle-pet {
+  color: var(--primary-color-dark-white);
 }
 
 .card-pet-label {
-    display: inline-block;
-    background-color: var(--primary-color-blue);
-    padding: 10px;
-    color: var(--primary-color-white);
-    width: 100px;
-    height: 100px;
-    font-weight: bold;
-    font-size: 20px;
-    box-sizing: border-box;
-    border-radius: 10px;
+  display: flex;
+  background-color: var(--primary-color-blue);
+  color: var(--primary-color-white);
+  padding: 10px;
+  width: 220px;
+  height: 100px;
+  font-weight: bold;
+  font-size: 20px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
+#button-pet {
+  width: 100px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 25px;
+  border: 1px solid white;
+  margin-top: 20px;
+  color: var(--primary-color-black);
+  background-color: var(--primary-color-light-gray);
 }
 
 .cards {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.card-pet-label img {
+  width: 80px;
 }
 
 input {
-    display: none;
+  display: none;
+}
+
+input:checked + label{
+    background-color: var(--primary-color-dark-green);
+}
+
+#select-attack {
+  flex-direction: column;
+  align-items: center;
+}
+
+.button__attack {
+  background-color: var(--primary-color-blue);
+  width: 120px;
+  height: 50px;
+  border-radius: 40px;
+  color: var(--primary-color-dark-white);
+  border-color: transparent;
+  padding: 10px;
+  margin: 20px;
+  font-size: 20px;
+}
+
+#messages {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background: var(--primary-color-dark-white);
+  width: 300px;
+  height: 100px;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px auto 10px auto ;
+}
+
+#lifes-div {
+  flex-direction: column;
+}
+
+#button-reset {
+  background-color: var(--primary-color-blue);
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  color: var(--primary-color-dark-white);
+  border-color: transparent;
+  padding: 10px;
+  margin: 5px;
+  font-size: 16px;
+}
+
+#result-div {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#card-attack-div {
+  /* border: 1px solid var(--primary-color-dark-white); */
+  display: grid;
+  grid-template-columns: 100px 100px;
+  justify-items: center;
+  justify-content: center;
+  gap: 80px;
+}
+
+#card-enemy-attack,
+#card-player-attack {
+  background-color: var(--primary-color-dark-white);
+  padding: 5px;
+  border-radius: 15px;
+  text-align: center;
+  justify-content: center;
+  margin: 10px;
+  width: 140px;
+}
+
+.button__actions {
+  display: flex;
+}
+
+#player-pet-life, #enemy-pet-life,
+#pet__player, #pet__enemy {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+@media (max-width: 360px) {
+  .cards {
+    flex-direction: column;
+  }
+  .button__actions {
+    flex-direction: column;
+  }
+
+  .button__attack {
+  width: 120px;
+  height: 40px;
+  border-radius: 40px;
+  color: var(--primary-color-dark-white);
+  border-color: transparent;
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+}
+.card-pet-label {
+    height: 90px;
+}
 }

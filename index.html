@@ -13,50 +13,79 @@
       href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
       rel="stylesheet"
     />
-
-    <script src="/js/script.js"></script>
   </head>
   <body>
-    <section id="select-pet">
+    <section id="main-section">
       <h1 id="main-title" class="title">MOKEPON</h1>
-      <h2>Chose a pet:</h2>
-      <h2>PETS</h2>
+      <section id="select-pet">
+        <h2 class="subtitle-chose">Chose a pet:</h2>
+        <h2 class="subtitle-pet">PETS</h2>
 
-      <div class="cards">
-        <label for="chamaleon" class="card-pet-label">Chamaleon</label>
-        <input type="radio" name="pet" id="chamaleon" />
+        <div class="cards">
+          <input type="radio" name="pet" id="chamaleon" />
+          <label for="chamaleon" class="card-pet-label">
+            Chamaleon
+            <img
+              class="img-pet"
+              src="/assets/Chamaleon_attack.png"
+              alt="chamaleon-attack"
+            />
+          </label>
 
-        <label for="turtle" class="card-pet-label">Turtle</label>
-        <input type="radio" name="pet" id="turtle" />
+          <input type="radio" name="pet" id="turtle" />
+          <label for="turtle" class="card-pet-label">
+            Turtle
+            <img
+              class="img-pet"
+              src="assets/Turtle_attack.png"
+              alt="Turtle_attack"
+            />
+          </label>
 
-        <label for="basur" class="card-pet-label">Basur</label>
-        <input type="radio" name="pet" id="basur" />
+          <input type="radio" name="pet" id="basur" />
+          <label for="basur" class="card-pet-label">
+            Basur
+            <img
+              class="img-pet"
+              src="assets/Basur_attack.png"
+              alt="Basur_attack"
+            />
+          </label>
+        </div>
+
+        <button id="button-pet" class="button__select">Select</button>
+      </section>
+
+      <section id="select-attack">
+        <h2 class="subtitle-pet">Chose your attack:</h2>
+
+        <div class="button__actions">
+          <button id="button__fire" class="button__attack">FIRE</button>
+          <button id="button__water" class="button__attack">WATER</button>
+          <button id="button__ground" class="button__attack">GROUND</button>
+        </div>
+      </section>
+      <div id="messages">
+        <span id="start-message">GOOD LUCK</span>
+        <p id="result-div"></p>
+        <section id="section-reset">
+          <button id="button-reset" class="button__reset">RESET</button>
+        </section>
       </div>
 
-      <button id="button-pet" class="button__select">Select</button>
+      <div id="card-attack-div">
+        <div id="card-player-attack" class="">
+          <p id="player-pet-life"></p>
+          <p id="pet__player"></p>
+          <div id="attackPlayer-div"></div>
+        </div>
+        <div id="card-enemy-attack" class="">
+          <p id="enemy-pet-life"></p>
+          <p id="pet__enemy"></p>
+          <div id="attackEnemy-div"></div>
+        </div>
+      </div>
     </section>
-
-    <section id="select-attack">
-      <h2>Chose your attack:</h2>
-
-      <p>
-        Your pet <span id="pet__player"></span> has
-        <span id="player-pet-life"></span> lifes
-      </p>
-      <p>
-        Enemy's pet <span id="pet__enemy"></span> has
-        <span id="enemy-pet-life"></span> lifes
-      </p>
-      <p class="button__actions">
-        <button id="button__fire" class="button__attack">FIRE</button>
-        <button id="button__water" class="button__attack">WATER</button>
-        <button id="button__ground" class="button__attack">GROUND</button>
-      </p>
-    </section>
-
-    <section id="section-reset">
-      <button id="button-reset" class="button__reset">RESET</button>
-    </section>
-    <section id="messages"></section>
+    <script src="/js/script.js"></script>
   </body>
 </html>

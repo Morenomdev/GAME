@@ -1,3 +1,13 @@
+let sectionSelectAttack = document.getElementById('select-attack');
+let sectionReset = document.getElementById('section-reset');
+let divMessage = document.getElementById('messages');
+let divLifes = document.getElementById('card-attack-div');
+let buttonPetPlayer = document.getElementById('button-pet');
+let buttonFire = document.getElementById('button__fire');
+let buttonWater = document.getElementById('button__water');
+let buttonGround = document.getElementById('button__ground');
+let buttonReset = document.getElementById('button-reset');
+
 let attackPlayer = '';
 let attackEnemy = '';
 let result = '';
@@ -5,30 +15,26 @@ let petPlayerLife = 3;
 let petEnemyLife = 3;
 
 function startGame() {
-  let sectionSelectAttack = document.getElementById('select-attack');
   sectionSelectAttack.style.display = 'none';
 
-  let sectionReset = document.getElementById('section-reset');
   sectionReset.style.display = 'none';
 
-  let buttonPetPlayer = document.getElementById('button-pet');
+  divMessage.style.display = 'none';
+
+  divLifes.style.display = 'none';
+
   buttonPetPlayer.addEventListener('click', selectionPetPlayer);
 
-  let buttonFire = document.getElementById('button__fire');
   buttonFire.addEventListener('click', attackFire);
 
-  let buttonWater = document.getElementById('button__water');
   buttonWater.addEventListener('click', attackWater);
 
-  let buttonGround = document.getElementById('button__ground');
   buttonGround.addEventListener('click', attackGround);
 
   document.getElementById('enemy-pet-life').innerHTML = petEnemyLife;
   document.getElementById('player-pet-life').innerHTML = petPlayerLife;
 
-  let buttonReset = document.getElementById('button-reset');
   buttonReset.addEventListener('click', reset);
-
 }
 
 function attackFire() {
@@ -48,33 +54,45 @@ function random(min, max) {
 }
 
 function selectionPetPlayer() {
-  let sectionSelectAttack = document.getElementById('select-attack');
-  sectionSelectAttack.style.display = 'block';
-
-  let sectionSelectPet = document.getElementById('select-pet');
-  sectionSelectPet.style.display = 'none';
-
   let petSelected = '';
   let inputChamaleon = document.getElementById('chamaleon');
   let inputTurtle = document.getElementById('turtle');
   let inputBasur = document.getElementById('basur');
   let spanPetPlayer = document.getElementById('pet__player');
   //   let petEnemy =
-
-  if (inputChamaleon.checked) {
-    petSelected = 'chamaleon';
-    spanPetPlayer.innerHTML = 'Chamaleon';
-  } else if (inputTurtle.checked) {
-    petSelected = 'turtle';
-    spanPetPlayer.innerHTML = 'Turtle';
-  } else if (inputBasur.checked) {
-    petSelected = 'basur';
-    spanPetPlayer.innerHTML = 'Basur';
-  } else {
+  if (
+    inputChamaleon.checked == false &&
+    inputTurtle.checked == false &&
+    inputBasur.checked == false
+  ) {
     alert('You should select a pet');
+  } else {
+    let divMessage = document.getElementById('messages');
+    divMessage.style.display = 'flex';
+    let sectionSelectAttack = document.getElementById('select-attack');
+    sectionSelectAttack.style.display = 'flex';
+
+    let sectionSelectPet = document.getElementById('select-pet');
+    sectionSelectPet.style.display = 'none';
+
+    let divLifes = document.getElementById('card-attack-div');
+    divLifes.style.display = 'grid';
+
+    if (inputChamaleon.checked) {
+      petSelected = 'chamaleon';
+      spanPetPlayer.innerHTML = 'Chamaleon';
+    } else if (inputTurtle.checked) {
+      petSelected = 'turtle';
+      spanPetPlayer.innerHTML = 'Turtle';
+    } else if (inputBasur.checked) {
+      petSelected = 'basur';
+      spanPetPlayer.innerHTML = 'Basur';
+    } else {
+      alert('You should select a pet');
+    }
+    selectionPetEnemy();
+    return petSelected;
   }
-  selectionPetEnemy();
-  return petSelected;
 }
 
 function selectionPetEnemy() {
@@ -92,6 +110,8 @@ function selectionPetEnemy() {
 }
 
 function spanAttackEnemy() {
+  let startMessage = document.getElementById('start-message');
+  startMessage.style.display = 'none';
   let numberEnemy = random(1, 3);
   if (numberEnemy == 1) {
     attackEnemy = 'FIRE';
@@ -105,24 +125,34 @@ function spanAttackEnemy() {
 }
 
 function createMessage() {
-  let paragraph = document.createElement('p');
-  let sectionMessages = document.getElementById('messages');
-  paragraph.innerHTML =
-    'Your pet attacks with ' +
-    attackPlayer +
-    ', pet of enemy attacks with ' +
-    attackEnemy +
-    ' - ' +
-    result;
-  sectionMessages.appendChild(paragraph);
+  //   let paragraph = document.createElement('p');
+  let resultDiv = document.getElementById('result-div');
+  let attackPlayerDiv = document.getElementById('attackPlayer-div');
+  let attackEnemyDiv = document.getElementById('attackEnemy-div');
+
+  let newAttackPlayer = document.createElement('p');
+  let newAttackEnemy = document.createElement('p');
+
+  resultDiv.innerHTML = result;
+  newAttackPlayer.innerHTML = attackPlayer;
+  newAttackEnemy.innerHTML = attackEnemy;
+
+  //   paragraph.innerHTML =
+  //     'Your pet attacks with ' +
+  //     attackPlayer +
+  //     ', pet of enemy attacks with ' +
+  //     attackEnemy +
+  //     ' - ' +
+  //     result;
+  attackPlayerDiv.appendChild(newAttackPlayer);
+  attackEnemyDiv.appendChild(newAttackEnemy);
   checkLife();
 }
 
 function finalMessage(finalMessage) {
-  let paragraph = document.createElement('p');
-  let sectionMessages = document.getElementById('messages');
-  paragraph.innerHTML = finalMessage;
-  sectionMessages.appendChild(paragraph);
+  //   let paragraph = document.createElement('p');
+  let divMessage = document.getElementById('result-div');
+  divMessage.innerHTML = finalMessage;
 
   let buttonPetPlayer = document.getElementById('button-pet');
   buttonPetPlayer.disabled = true;
@@ -137,7 +167,8 @@ function finalMessage(finalMessage) {
   buttonGround.disabled = true;
 
   let sectionReset = document.getElementById('section-reset');
-  sectionReset.style.display = 'block';
+  sectionReset.style.display = 'flex';
+  //   sectionReset.style.display = 'flex'
 
   //   sectionReset.style.display = 'none';
 }
