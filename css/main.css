@@ -134,6 +134,14 @@ input:checked + label{
   margin: 10px auto 10px auto ;
 }
 
+
+/* #button__fire:disabled,
+#button__water:disabled,
+#button__ground:disabled {
+    background-color: var(--primary-color-dark-black);
+} */
+
+
 #lifes-div {
   flex-direction: column;
 }
