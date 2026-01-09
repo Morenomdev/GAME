@@ -25,6 +25,22 @@ let attackEnemy = '';
 let result = '';
 let petPlayerLife = 3;
 let petEnemyLife = 3;
+let mokepones = []
+
+class Mokepon {
+  constructor(name, photo, life) {
+    this.name = name;
+    this.photo = photo;
+    this.life = life;
+  }
+}
+
+let chamaleon = new Mokepon('Chamaleon', '/assets/Chamaleon_attack.png', 3);
+let turtle = new Mokepon('Turtle', '/assets/Turtle_attack.png', 3);
+let basur = new Mokepon('Basur', '/assets/Basur_attack.png', 3);
+
+mokepones.push(chamaleon, turtle, basur)
+
 
 function startGame() {
   sectionSelectAttack.style.display = 'none';
