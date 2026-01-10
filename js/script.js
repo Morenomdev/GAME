@@ -46,6 +46,8 @@ let inputTucapalma;
 let inputLangosta;
 let inputPydos;
 
+let petPlayerObject;
+
 let optionMokepon;
 let optionAttack;
 
@@ -55,31 +57,109 @@ let buttonGround;
 
 let lienzo = map.getContext('2d');
 let interval;
+let mapBackground = new Image();
+mapBackground.src = './assets/mokemap.png';
 
 class Mokepon {
-  constructor(name, photo, life, type) {
+  constructor(name, photo, life, photoMap, x = 10, y = 10) {
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
-    this.type = type;
-    this.x = 20;
-    this.y = 30;
-    this.width = 80;
-    this.height = 80;
+    this.x = x;
+    this.y = y;
+    this.width = 60;
+    this.height = 60;
     this.mapPhoto = new Image();
-    this.mapPhoto.src = photo;
+    this.mapPhoto.src = photoMap;
     this.velX = 0;
     this.velY = 0;
   }
+
+  paintMokepon() {
+    lienzo.drawImage(this.mapPhoto, this.x, this.y, this.width, this.height);
+  }
 }
 
-let chamaleon = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 3);
-let turtle = new Mokepon('Turtle', './assets/Turtle_attack.png', 3);
-let basur = new Mokepon('Basur', './assets/Basur_attack.png', 3);
-let pydos = new Mokepon('Pydos', './assets/Pydos_attack.png', 3);
-let tucapalma = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 3);
-let langosta = new Mokepon('Langosta', './assets/Langosta_attack.png', 3);
+let chamaleon = new Mokepon(
+  'Chamaleon',
+  './assets/Chamaleon_attack.png',
+  5,
+  './assets/Chamaleon_attack.png'
+);
+let turtle = new Mokepon(
+  'Turtle',
+  './assets/Turtle_attack.png',
+  5,
+  './assets/Turtle_attack.png'
+);
+let basur = new Mokepon(
+  'Basur',
+  './assets/Basur_attack.png',
+  5,
+  './assets/Basur_attack.png'
+);
+let pydos = new Mokepon(
+  'Pydos',
+  './assets/Pydos_attack.png',
+  5,
+  './assets/Pydos_attack.png'
+);
+let tucapalma = new Mokepon(
+  'Tucapalma',
+  './assets/Tucapalma_attack.png',
+  5,
+  './assets/Tucapalma_attack.png'
+);
+let langosta = new Mokepon(
+  'Langosta',
+  './assets/Langosta_attack.png',
+  5,
+  './assets/Langosta_attack.png'
+);
+
+let chamaleonEnemy = new Mokepon(
+  'Chamaleon',
+  './assets/Chamaleon_attack.png',
+  5,
+  './assets/Chamaleon_attack.png',
+  80,
+  120
+);
+let turtleEnemy = new Mokepon(
+  'Turtle',
+  './assets/Turtle_attack.png',
+  5,
+  './assets/Turtle_attack.png',
+  150,
+  95
+);
+let basurEnemy = new Mokepon(
+  'Basur',
+  './assets/Basur_attack.png',
+  5,
+  './assets/Basur_attack.png',
+  200,
+  190
+);
+let pydosEnemy = new Mokepon(
+  'Pydos',
+  './assets/Pydos_attack.png',
+  5,
+  './assets/Pydos_attack.png'
+);
+let tucapalmaEnemy = new Mokepon(
+  'Tucapalma',
+  './assets/Tucapalma_attack.png',
+  5,
+  './assets/Tucapalma_attack.png'
+);
+let langostaEnemy = new Mokepon(
+  'Langosta',
+  './assets/Langosta_attack.png',
+  5,
+  './assets/Langosta_attack.png'
+);
 
 turtle.attacks.push(
   { name: 'Water', id: 'button__water' },
@@ -158,11 +238,11 @@ function startGame() {
     inputTucapalma = document.getElementById('Tucapalma');
   });
 
-  sectionReset.style.display = 'none';
+  // sectionReset.style.display = 'none';
 
-  divMessage.style.display = 'none';
+  // divMessage.style.display = 'none';
 
-  divLifes.style.display = 'none';
+  // divLifes.style.display = 'none';
 
   buttonPetPlayer.addEventListener('click', selectionPetPlayer);
 
@@ -170,46 +250,46 @@ function startGame() {
   //   document.getElementById('player-pet-life').innerHTML = petPlayerLife;
 
   buttonReset.addEventListener('click', reset);
-  paintMokepon();
+  // paintCanvas();
 }
 
-function paintMokepon() {
-  chamaleon.x = chamaleon.x + chamaleon.velX;
-  chamaleon.y = chamaleon.y + chamaleon.velY;
+function paintCanvas() {
+  petPlayerObject.x = petPlayerObject.x + petPlayerObject.velX;
+  petPlayerObject.y = petPlayerObject.y + petPlayerObject.velY;
   lienzo.clearRect(0, 0, map.width, map.height);
-  lienzo.drawImage(
-    chamaleon.mapPhoto,
-    chamaleon.x,
-    chamaleon.y,
-    chamaleon.width,
-    chamaleon.height
-  );
+  lienzo.drawImage(mapBackground, 0, 0, map.width, map.height);
+
+  petPlayerObject.paintMokepon()
+  chamaleonEnemy.paintMokepon()
+  turtleEnemy.paintMokepon()
+  basurEnemy.paintMokepon()
+  
+  if(petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0  ){
+    checkColision(chamaleonEnemy)
+    checkColision(turtleEnemy)
+    checkColision(basurEnemy)
+  }
 }
 
 function moveMokeponUp() {
-  chamaleon.velY = -5;
+  petPlayerObject.velY = -5;
 }
 function moveMokeponLeft() {
-  chamaleon.velX = -5;
+  petPlayerObject.velX = -5;
 }
 function moveMokeponDown() {
-  chamaleon.velY = 5;
+  petPlayerObject.velY = 5;
 }
 function moveMokeponRight() {
-  chamaleon.velX = 5;
+  petPlayerObject.velX = 5;
 }
 
 function stopMotion() {
-  chamaleon.velX = 0;
-  chamaleon.velY = 0;
+  petPlayerObject.velX = 0;
+  petPlayerObject.velY = 0;
 }
 
 function selectionPetPlayer() {
-  sectionWatchMap.style.display = 'flex';
-  interval = setInterval(paintMokepon, 50);
-
-  window.addEventListener('keydown', pressKey);
-  window.addEventListener('keyup', stopMotion);
 
   if (
     inputChamaleon.checked == false &&
@@ -221,12 +301,12 @@ function selectionPetPlayer() {
   ) {
     alert('You should select a pet');
   } else {
-    divMessage.style.display = 'flex';
-    sectionSelectAttack.style.display = 'flex';
+    sectionSelectAttack.style.display = 'none';
+    // divMessage.style.display = 'none';
 
     sectionSelectPet.style.display = 'none';
 
-    divLifes.style.display = 'grid';
+    // divLifes.style.display = 'none';
 
     if (inputChamaleon.checked) {
       spanPetPlayer.innerHTML = inputChamaleon.id;
@@ -251,8 +331,47 @@ function selectionPetPlayer() {
     }
 
     extractAttacks(petPlayer);
+    sectionWatchMap.style.display = 'flex';
+
+    startMap();
     selectionPetEnemy();
   }
+}
+
+function checkColision(enemy) {
+  const upEnemy = enemy.y
+  const downEnemy = enemy.y + enemy.height
+  const rightEnemy = enemy.x + enemy.width
+  const leftEnemy = enemy.x
+
+  const upPet = petPlayerObject.y
+  const downPet = petPlayerObject.y + petPlayerObject.height
+  const rightPet = petPlayerObject.x + petPlayerObject.width
+  const leftPet = petPlayerObject.x
+
+  if (
+    downPet < upEnemy ||
+    upPet > downEnemy ||
+    rightPet < leftEnemy ||
+    leftPet > rightEnemy
+  ) {
+    return
+  }
+  stopMotion()
+  // console.log('colision with ' + enemy.name)
+    sectionWatchMap.style.display = 'none'
+    sectionSelectAttack.style.display = 'flex';
+
+}
+
+function startMap() {
+  map.width = 320;
+  map.height = 240;
+  petPlayerObject = getObjetPet(petPlayer);
+  interval = setInterval(paintCanvas, 50);
+
+  window.addEventListener('keydown', pressKey);
+  window.addEventListener('keyup', stopMotion);
 }
 
 function pressKey(event) {
@@ -302,6 +421,14 @@ function extractAttacks(petPlayer) {
   //test to watch result array
   //   console.log(attacks);
   showButtonsAttacks(attacks);
+}
+
+function getObjetPet() {
+  for (let i = 0; i < mokepones.length; i++) {
+    if (petPlayer === mokepones[i].name) {
+      return mokepones[i];
+    }
+  }
 }
 
 function showButtonsAttacks(attacks) {
