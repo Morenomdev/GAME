@@ -20,6 +20,9 @@ const containerButtons = document.getElementById('container-buttons');
 const petEnemyLife = document.getElementById('enemy-pet-life');
 const petPlayerLife = document.getElementById('player-pet-life');
 
+const sectionWatchMap = document.getElementById('watch-map');
+const map = document.getElementById('map');
+
 let attackPlayer = '';
 let attackEnemy = [];
 let result = '';
@@ -39,6 +42,9 @@ let petPlayer = '';
 let inputChamaleon;
 let inputTurtle;
 let inputBasur;
+let inputTucapalma;
+let inputLangosta;
+let inputPydos;
 
 let optionMokepon;
 let optionAttack;
@@ -47,18 +53,33 @@ let buttonFire;
 let buttonWater;
 let buttonGround;
 
+let lienzo = map.getContext('2d');
+let interval;
+
 class Mokepon {
-  constructor(name, photo, life) {
+  constructor(name, photo, life, type) {
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
+    this.type = type;
+    this.x = 20;
+    this.y = 30;
+    this.width = 80;
+    this.height = 80;
+    this.mapPhoto = new Image();
+    this.mapPhoto.src = photo;
+    this.velX = 0;
+    this.velY = 0;
   }
 }
 
 let chamaleon = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 3);
 let turtle = new Mokepon('Turtle', './assets/Turtle_attack.png', 3);
 let basur = new Mokepon('Basur', './assets/Basur_attack.png', 3);
+let pydos = new Mokepon('Pydos', './assets/Pydos_attack.png', 3);
+let tucapalma = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 3);
+let langosta = new Mokepon('Langosta', './assets/Langosta_attack.png', 3);
 
 turtle.attacks.push(
   { name: 'Water', id: 'button__water' },
@@ -84,11 +105,36 @@ basur.attacks.push(
   { name: 'Fire', id: 'button__fire' }
 );
 
+pydos.attacks.push(
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+tucapalma.attacks.push(
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+langosta.attacks.push(
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' }
+);
+
 // test
-mokepones.push(chamaleon, turtle, basur);
+mokepones.push(chamaleon, turtle, basur, pydos, tucapalma, langosta);
 
 function startGame() {
   sectionSelectAttack.style.display = 'none';
+  sectionWatchMap.style.display = 'none';
 
   mokepones.forEach((mokepon) => {
     optionMokepon = `
@@ -107,6 +153,9 @@ function startGame() {
     inputChamaleon = document.getElementById('Chamaleon');
     inputTurtle = document.getElementById('Turtle');
     inputBasur = document.getElementById('Basur');
+    inputPydos = document.getElementById('Pydos');
+    inputLangosta = document.getElementById('Langosta');
+    inputTucapalma = document.getElementById('Tucapalma');
   });
 
   sectionReset.style.display = 'none';
@@ -121,31 +170,54 @@ function startGame() {
   //   document.getElementById('player-pet-life').innerHTML = petPlayerLife;
 
   buttonReset.addEventListener('click', reset);
+  paintMokepon();
 }
 
-function finalMessage(finalMessage) {
-  //   let paragraph = document.createElement('p');
-  let divMessage = document.getElementById('result-div');
-  divMessage.innerHTML = finalMessage;
-
-  buttonPetPlayer.disabled = true;
-
-  sectionReset.style.display = 'flex';
-  //   sectionReset.style.display = 'flex'
-
-  //   sectionReset.style.display = 'none';
+function paintMokepon() {
+  chamaleon.x = chamaleon.x + chamaleon.velX;
+  chamaleon.y = chamaleon.y + chamaleon.velY;
+  lienzo.clearRect(0, 0, map.width, map.height);
+  lienzo.drawImage(
+    chamaleon.mapPhoto,
+    chamaleon.x,
+    chamaleon.y,
+    chamaleon.width,
+    chamaleon.height
+  );
 }
 
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
+function moveMokeponUp() {
+  chamaleon.velY = -5;
+}
+function moveMokeponLeft() {
+  chamaleon.velX = -5;
+}
+function moveMokeponDown() {
+  chamaleon.velY = 5;
+}
+function moveMokeponRight() {
+  chamaleon.velX = 5;
+}
+
+function stopMotion() {
+  chamaleon.velX = 0;
+  chamaleon.velY = 0;
 }
 
 function selectionPetPlayer() {
-  //   let petEnemy =
+  sectionWatchMap.style.display = 'flex';
+  interval = setInterval(paintMokepon, 50);
+
+  window.addEventListener('keydown', pressKey);
+  window.addEventListener('keyup', stopMotion);
+
   if (
     inputChamaleon.checked == false &&
     inputTurtle.checked == false &&
-    inputBasur.checked == false
+    inputBasur.checked == false &&
+    inputPydos.checked == false &&
+    inputLangosta.checked == false &&
+    inputTucapalma.checked == false
   ) {
     alert('You should select a pet');
   } else {
@@ -165,12 +237,59 @@ function selectionPetPlayer() {
     } else if (inputBasur.checked) {
       spanPetPlayer.innerHTML = inputBasur.id;
       petPlayer = inputBasur.id;
+    } else if (inputPydos.checked) {
+      spanPetPlayer.innerHTML = inputPydos.id;
+      petPlayer = inputPydos.id;
+    } else if (inputLangosta.checked) {
+      spanPetPlayer.innerHTML = inputLangosta.id;
+      petPlayer = inputLangosta.id;
+    } else if (inputTucapalma.checked) {
+      spanPetPlayer.innerHTML = inputTucapalma.id;
+      petPlayer = inputTucapalma.id;
     } else {
       alert('You should select a pet');
     }
+
     extractAttacks(petPlayer);
     selectionPetEnemy();
   }
+}
+
+function pressKey(event) {
+  switch (event.key) {
+    case 'ArrowUp':
+      moveMokeponUp();
+      break;
+    case 'ArrowDown':
+      moveMokeponDown();
+      break;
+    case 'ArrowLeft':
+      moveMokeponLeft();
+      break;
+    case 'ArrowRight':
+      moveMokeponRight();
+      break;
+
+    default:
+      break;
+  }
+}
+
+function finalMessage(finalMessage) {
+  //   let paragraph = document.createElement('p');
+  let divMessage = document.getElementById('result-div');
+  divMessage.innerHTML = finalMessage;
+
+  buttonPetPlayer.disabled = true;
+
+  sectionReset.style.display = 'flex';
+  //   sectionReset.style.display = 'flex'
+
+  //   sectionReset.style.display = 'none';
+}
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function extractAttacks(petPlayer) {

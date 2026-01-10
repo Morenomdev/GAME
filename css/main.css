@@ -43,8 +43,10 @@ body {
 #select-pet,
 .title {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   align-items: center;
   border: 1px solid var(--primary-color-light-gray);
   padding: 10px;
@@ -87,6 +89,9 @@ body {
 
 .cards {
   display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -98,8 +103,8 @@ input {
   display: none;
 }
 
-input:checked + label{
-    background-color: var(--primary-color-dark-green);
+input:checked + label {
+  background-color: var(--primary-color-dark-green);
 }
 
 #select-attack {
@@ -131,16 +136,14 @@ input:checked + label{
   align-items: center;
   font-size: 20px;
   font-weight: bold;
-  margin: 10px auto 10px auto ;
+  margin: 10px auto 10px auto;
 }
-
 
 /* #button__fire:disabled,
 #button__water:disabled,
 #button__ground:disabled {
     background-color: var(--primary-color-dark-black);
 } */
-
 
 #lifes-div {
   flex-direction: column;
@@ -187,13 +190,27 @@ input:checked + label{
   display: flex;
 }
 
-#player-pet-life, #enemy-pet-life,
-#pet__player, #pet__enemy {
-    font-size: 24px;
-    font-weight: bold;
+#player-pet-life,
+#enemy-pet-life,
+#pet__player,
+#pet__enemy {
+  font-size: 24px;
+  font-weight: bold;
 }
 
-@media (max-width: 360px) {
+
+#watch-map {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#map {
+  border: 1px solid white;
+}
+
+
+@media (max-width: 400px) {
   .cards {
     flex-direction: column;
   }
@@ -202,16 +219,23 @@ input:checked + label{
   }
 
   .button__attack {
-  width: 120px;
-  height: 40px;
-  border-radius: 40px;
-  color: var(--primary-color-dark-white);
-  border-color: transparent;
-  padding: 10px;
-  margin: 10px;
-  font-size: 16px;
-}
-.card-pet-label {
+    width: 120px;
+    height: 40px;
+    border-radius: 40px;
+    color: var(--primary-color-dark-white);
+    border-color: transparent;
+    padding: 10px;
+    margin: 10px;
+    font-size: 16px;
+  }
+  .card-pet-label {
     height: 90px;
-}
+  }
+
+  .card-pet-label img {
+    width: 60px;
+  }
+  .card-pet-label {
+    height: 70px;
+  }
 }

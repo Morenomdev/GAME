@@ -22,10 +22,6 @@
         <h2 class="subtitle-pet">PETS</h2>
 
         <div id="container-cards" class="cards">
-
-
-
-
           <!-- <input type="radio" name="pet" id="chamaleon" />
           <label for="chamaleon" class="card-pet-label">
             Chamaleon
@@ -35,18 +31,24 @@
               alt="chamaleon-attack"
             />
           </label> -->
-
-         
         </div>
 
         <button id="button-pet" class="button__select">Select</button>
+      </section>
+
+      <section id="watch-map">
+        <h1 id="main-title" class="title">MAP MOKEPON</h1>
+        <canvas id="map"></canvas>
+        <button onmouseup="stopMotion()" onmousedown="moveMokeponUp()">Up</button>
+        <button onmouseup="stopMotion()" onmousedown="moveMokeponLeft()">Left</button>
+        <button onmouseup="stopMotion()" onmousedown="moveMokeponDown()">Down</button>
+        <button onmouseup="stopMotion()" onmousedown="moveMokeponRight()">Right</button>
       </section>
 
       <section id="select-attack">
         <h2 class="subtitle-pet">Chose your attack:</h2>
 
         <div id="container-buttons" class="button__actions">
-            
           <!-- <button id="button__fire" class="button__attack">FIR</button>
           <button id="button__water" class="button__attack">WATER</button>
           <button id="button__ground" class="button__attack">GROUND</button> -->
