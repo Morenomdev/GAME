@@ -209,6 +209,54 @@ langosta.attacks.push(
   { name: 'Fire', id: 'button__fire' }
 );
 
+turtleEnemy.attacks.push(
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+chamaleonEnemy.attacks.push(
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+basurEnemy.attacks.push(
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' }
+);
+
+pydosEnemy.attacks.push(
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+tucapalmaEnemy.attacks.push(
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Ground', id: 'button__ground' }
+);
+
+langostaEnemy.attacks.push(
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Ground', id: 'button__ground' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' }
+);
+
 // test
 mokepones.push(chamaleon, turtle, basur, pydos, tucapalma, langosta);
 
@@ -238,7 +286,7 @@ function startGame() {
     inputTucapalma = document.getElementById('Tucapalma');
   });
 
-  // sectionReset.style.display = 'none';
+  sectionReset.style.display = 'none';
 
   // divMessage.style.display = 'none';
 
@@ -334,7 +382,7 @@ function selectionPetPlayer() {
     sectionWatchMap.style.display = 'flex';
 
     startMap();
-    selectionPetEnemy();
+    
   }
 }
 
@@ -358,9 +406,11 @@ function checkColision(enemy) {
     return
   }
   stopMotion()
-  // console.log('colision with ' + enemy.name)
+  clearInterval(interval)
+  console.log('detectmotion')
     sectionWatchMap.style.display = 'none'
     sectionSelectAttack.style.display = 'flex';
+    selectionPetEnemy(enemy);
 
 }
 
@@ -469,11 +519,9 @@ function secuenceAttacks() {
   });
 }
 
-function selectionPetEnemy() {
-  let numberEnemy = random(0, mokepones.length - 1);
-
-  petEnemy.innerHTML = mokepones[numberEnemy].name;
-  attacksMokeponEnemy = mokepones[numberEnemy].attacks;
+function selectionPetEnemy(enemy) {
+  petEnemy.innerHTML = enemy.name;
+  attacksMokeponEnemy = enemy.attacks;
   secuenceAttacks();
 
   return petEnemy;
