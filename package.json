@@ -1,0 +1,23 @@
+{
+  "name": "mokepon",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000G\u0000A\u0000M\u0000E\u0000\r\u0000 \u0000",
+  "homepage": "https://github.com/Morenomdev/GAME#readme",
+  "bugs": {
+    "url": "https://github.com/Morenomdev/GAME/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Morenomdev/GAME.git"
+  },
+  "license": "ISC",
+  "author": "Jesus Moreno",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
