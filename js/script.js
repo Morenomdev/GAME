@@ -64,6 +64,8 @@ let findHeight;
 let widthMap = window.innerWidth - 20;
 const maxWidthMap = 500;
 
+let playerId = null;
+
 if (widthMap > maxWidthMap) {
   widthMap = maxWidthMap;
 }
@@ -94,19 +96,79 @@ class Mokepon {
   }
 }
 
-let chamaleon = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 5, './assets/Chamaleon_attack.png');
-let turtle = new Mokepon('Turtle', './assets/Turtle_attack.png', 5, './assets/Turtle_attack.png');
-let basur = new Mokepon('Basur', './assets/Basur_attack.png', 5, './assets/Basur_attack.png');
-let pydos = new Mokepon('Pydos', './assets/Pydos_attack.png', 5, './assets/Pydos_attack.png');
-let tucapalma = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 5, './assets/Tucapalma_attack.png');
-let langosta = new Mokepon('Langosta', './assets/Langosta_attack.png', 5, './assets/Langosta_attack.png');
+let chamaleon = new Mokepon(
+  'Chamaleon',
+  './assets/Chamaleon_attack.png',
+  5,
+  './assets/Chamaleon_attack.png'
+);
+let turtle = new Mokepon(
+  'Turtle',
+  './assets/Turtle_attack.png',
+  5,
+  './assets/Turtle_attack.png'
+);
+let basur = new Mokepon(
+  'Basur',
+  './assets/Basur_attack.png',
+  5,
+  './assets/Basur_attack.png'
+);
+let pydos = new Mokepon(
+  'Pydos',
+  './assets/Pydos_attack.png',
+  5,
+  './assets/Pydos_attack.png'
+);
+let tucapalma = new Mokepon(
+  'Tucapalma',
+  './assets/Tucapalma_attack.png',
+  5,
+  './assets/Tucapalma_attack.png'
+);
+let langosta = new Mokepon(
+  'Langosta',
+  './assets/Langosta_attack.png',
+  5,
+  './assets/Langosta_attack.png'
+);
 
-let chamaleonEnemy = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 5, './assets/Chamaleon_attack.png');
-let turtleEnemy = new Mokepon('Turtle', './assets/Turtle_attack.png', 5, './assets/Turtle_attack.png');
-let basurEnemy = new Mokepon('Basur', './assets/Basur_attack.png', 5, './assets/Basur_attack.png');
-let pydosEnemy = new Mokepon('Pydos', './assets/Pydos_attack.png', 5, './assets/Pydos_attack.png');
-let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 5, './assets/Tucapalma_attack.png');
-let langostaEnemy = new Mokepon('Langosta', './assets/Langosta_attack.png', 5, './assets/Langosta_attack.png');
+let chamaleonEnemy = new Mokepon(
+  'Chamaleon',
+  './assets/Chamaleon_attack.png',
+  5,
+  './assets/Chamaleon_attack.png'
+);
+let turtleEnemy = new Mokepon(
+  'Turtle',
+  './assets/Turtle_attack.png',
+  5,
+  './assets/Turtle_attack.png'
+);
+let basurEnemy = new Mokepon(
+  'Basur',
+  './assets/Basur_attack.png',
+  5,
+  './assets/Basur_attack.png'
+);
+let pydosEnemy = new Mokepon(
+  'Pydos',
+  './assets/Pydos_attack.png',
+  5,
+  './assets/Pydos_attack.png'
+);
+let tucapalmaEnemy = new Mokepon(
+  'Tucapalma',
+  './assets/Tucapalma_attack.png',
+  5,
+  './assets/Tucapalma_attack.png'
+);
+let langostaEnemy = new Mokepon(
+  'Langosta',
+  './assets/Langosta_attack.png',
+  5,
+  './assets/Langosta_attack.png'
+);
 
 turtle.attacks.push(
   { name: 'Water', id: 'button__water' },
@@ -246,48 +308,21 @@ function startGame() {
 
   buttonReset.addEventListener('click', reset);
   // paintCanvas();
+
+  joinGame();
 }
 
-function paintCanvas() {
-  petPlayerObject.x = petPlayerObject.x + petPlayerObject.velX;
-  petPlayerObject.y = petPlayerObject.y + petPlayerObject.velY;
-  lienzo.clearRect(0, 0, map.width, map.height);
-  lienzo.drawImage(mapBackground, 0, 0, map.width, map.height);
+function joinGame() {
+  fetch('http://localhost:8080/join').then(function (res) {
+    // console.log(res);
 
-  petPlayerObject.paintMokepon();
-  chamaleonEnemy.paintMokepon();
-  turtleEnemy.paintMokepon();
-  basurEnemy.paintMokepon();
-  tucapalmaEnemy.paintMokepon();
-  langostaEnemy.paintMokepon();
-  pydosEnemy.paintMokepon();
-
-  if (petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0) {
-    checkColision(chamaleonEnemy);
-    checkColision(turtleEnemy);
-    checkColision(basurEnemy);
-    checkColision(tucapalmaEnemy);
-    checkColision(langostaEnemy);
-    checkColision(pydosEnemy);
-  }
-}
-
-function moveMokeponUp() {
-  petPlayerObject.velY = -5;
-}
-function moveMokeponLeft() {
-  petPlayerObject.velX = -5;
-}
-function moveMokeponDown() {
-  petPlayerObject.velY = 5;
-}
-function moveMokeponRight() {
-  petPlayerObject.velX = 5;
-}
-
-function stopMotion() {
-  petPlayerObject.velX = 0;
-  petPlayerObject.velY = 0;
+    if (res.ok) {
+      res.text().then(function (respuesta) {
+        console.log(respuesta);
+        playerId = respuesta;
+      });
+    }
+  });
 }
 
 function selectionPetPlayer() {
@@ -330,11 +365,67 @@ function selectionPetPlayer() {
       alert('You should select a pet');
     }
 
+    selectPet(petPlayer);
+
     extractAttacks(petPlayer);
     sectionWatchMap.style.display = 'flex';
 
     startMap();
   }
+}
+
+function selectPet(petPlayer) {
+  fetch(`http://localhost:8080/mokepon/${playerId}`, {
+    method: 'post',
+    headers: {
+      'content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      mokepon: petPlayer,
+    }),
+  });
+}
+
+function paintCanvas() {
+  petPlayerObject.x = petPlayerObject.x + petPlayerObject.velX;
+  petPlayerObject.y = petPlayerObject.y + petPlayerObject.velY;
+  lienzo.clearRect(0, 0, map.width, map.height);
+  lienzo.drawImage(mapBackground, 0, 0, map.width, map.height);
+
+  petPlayerObject.paintMokepon();
+  chamaleonEnemy.paintMokepon();
+  turtleEnemy.paintMokepon();
+  basurEnemy.paintMokepon();
+  tucapalmaEnemy.paintMokepon();
+  langostaEnemy.paintMokepon();
+  pydosEnemy.paintMokepon();
+
+  if (petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0) {
+    checkColision(chamaleonEnemy);
+    checkColision(turtleEnemy);
+    checkColision(basurEnemy);
+    checkColision(tucapalmaEnemy);
+    checkColision(langostaEnemy);
+    checkColision(pydosEnemy);
+  }
+}
+
+function moveMokeponUp() {
+  petPlayerObject.velY = -5;
+}
+function moveMokeponLeft() {
+  petPlayerObject.velX = -5;
+}
+function moveMokeponDown() {
+  petPlayerObject.velY = 5;
+}
+function moveMokeponRight() {
+  petPlayerObject.velX = 5;
+}
+
+function stopMotion() {
+  petPlayerObject.velX = 0;
+  petPlayerObject.velY = 0;
 }
 
 function checkColision(enemy) {
