@@ -60,16 +60,29 @@ let interval;
 let mapBackground = new Image();
 mapBackground.src = './assets/mokemap.png';
 
+let findHeight;
+let widthMap = window.innerWidth - 20;
+const maxWidthMap = 500;
+
+if (widthMap > maxWidthMap) {
+  widthMap = maxWidthMap;
+}
+
+findHeight = (widthMap * 600) / 800;
+
+map.width = widthMap;
+map.height = findHeight;
+
 class Mokepon {
-  constructor(name, photo, life, photoMap, x = 10, y = 10) {
+  constructor(name, photo, life, photoMap) {
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
-    this.x = x;
-    this.y = y;
     this.width = 60;
     this.height = 60;
+    this.x = random(0, map.width - this.width);
+    this.y = random(0, map.height - this.height);
     this.mapPhoto = new Image();
     this.mapPhoto.src = photoMap;
     this.velX = 0;
@@ -81,85 +94,19 @@ class Mokepon {
   }
 }
 
-let chamaleon = new Mokepon(
-  'Chamaleon',
-  './assets/Chamaleon_attack.png',
-  5,
-  './assets/Chamaleon_attack.png'
-);
-let turtle = new Mokepon(
-  'Turtle',
-  './assets/Turtle_attack.png',
-  5,
-  './assets/Turtle_attack.png'
-);
-let basur = new Mokepon(
-  'Basur',
-  './assets/Basur_attack.png',
-  5,
-  './assets/Basur_attack.png'
-);
-let pydos = new Mokepon(
-  'Pydos',
-  './assets/Pydos_attack.png',
-  5,
-  './assets/Pydos_attack.png'
-);
-let tucapalma = new Mokepon(
-  'Tucapalma',
-  './assets/Tucapalma_attack.png',
-  5,
-  './assets/Tucapalma_attack.png'
-);
-let langosta = new Mokepon(
-  'Langosta',
-  './assets/Langosta_attack.png',
-  5,
-  './assets/Langosta_attack.png'
-);
+let chamaleon = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 5, './assets/Chamaleon_attack.png');
+let turtle = new Mokepon('Turtle', './assets/Turtle_attack.png', 5, './assets/Turtle_attack.png');
+let basur = new Mokepon('Basur', './assets/Basur_attack.png', 5, './assets/Basur_attack.png');
+let pydos = new Mokepon('Pydos', './assets/Pydos_attack.png', 5, './assets/Pydos_attack.png');
+let tucapalma = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 5, './assets/Tucapalma_attack.png');
+let langosta = new Mokepon('Langosta', './assets/Langosta_attack.png', 5, './assets/Langosta_attack.png');
 
-let chamaleonEnemy = new Mokepon(
-  'Chamaleon',
-  './assets/Chamaleon_attack.png',
-  5,
-  './assets/Chamaleon_attack.png',
-  80,
-  120
-);
-let turtleEnemy = new Mokepon(
-  'Turtle',
-  './assets/Turtle_attack.png',
-  5,
-  './assets/Turtle_attack.png',
-  150,
-  95
-);
-let basurEnemy = new Mokepon(
-  'Basur',
-  './assets/Basur_attack.png',
-  5,
-  './assets/Basur_attack.png',
-  200,
-  190
-);
-let pydosEnemy = new Mokepon(
-  'Pydos',
-  './assets/Pydos_attack.png',
-  5,
-  './assets/Pydos_attack.png'
-);
-let tucapalmaEnemy = new Mokepon(
-  'Tucapalma',
-  './assets/Tucapalma_attack.png',
-  5,
-  './assets/Tucapalma_attack.png'
-);
-let langostaEnemy = new Mokepon(
-  'Langosta',
-  './assets/Langosta_attack.png',
-  5,
-  './assets/Langosta_attack.png'
-);
+let chamaleonEnemy = new Mokepon('Chamaleon', './assets/Chamaleon_attack.png', 5, './assets/Chamaleon_attack.png');
+let turtleEnemy = new Mokepon('Turtle', './assets/Turtle_attack.png', 5, './assets/Turtle_attack.png');
+let basurEnemy = new Mokepon('Basur', './assets/Basur_attack.png', 5, './assets/Basur_attack.png');
+let pydosEnemy = new Mokepon('Pydos', './assets/Pydos_attack.png', 5, './assets/Pydos_attack.png');
+let tucapalmaEnemy = new Mokepon('Tucapalma', './assets/Tucapalma_attack.png', 5, './assets/Tucapalma_attack.png');
+let langostaEnemy = new Mokepon('Langosta', './assets/Langosta_attack.png', 5, './assets/Langosta_attack.png');
 
 turtle.attacks.push(
   { name: 'Water', id: 'button__water' },
@@ -307,15 +254,21 @@ function paintCanvas() {
   lienzo.clearRect(0, 0, map.width, map.height);
   lienzo.drawImage(mapBackground, 0, 0, map.width, map.height);
 
-  petPlayerObject.paintMokepon()
-  chamaleonEnemy.paintMokepon()
-  turtleEnemy.paintMokepon()
-  basurEnemy.paintMokepon()
-  
-  if(petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0  ){
-    checkColision(chamaleonEnemy)
-    checkColision(turtleEnemy)
-    checkColision(basurEnemy)
+  petPlayerObject.paintMokepon();
+  chamaleonEnemy.paintMokepon();
+  turtleEnemy.paintMokepon();
+  basurEnemy.paintMokepon();
+  tucapalmaEnemy.paintMokepon();
+  langostaEnemy.paintMokepon();
+  pydosEnemy.paintMokepon();
+
+  if (petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0) {
+    checkColision(chamaleonEnemy);
+    checkColision(turtleEnemy);
+    checkColision(basurEnemy);
+    checkColision(tucapalmaEnemy);
+    checkColision(langostaEnemy);
+    checkColision(pydosEnemy);
   }
 }
 
@@ -338,7 +291,6 @@ function stopMotion() {
 }
 
 function selectionPetPlayer() {
-
   if (
     inputChamaleon.checked == false &&
     inputTurtle.checked == false &&
@@ -382,20 +334,19 @@ function selectionPetPlayer() {
     sectionWatchMap.style.display = 'flex';
 
     startMap();
-    
   }
 }
 
 function checkColision(enemy) {
-  const upEnemy = enemy.y
-  const downEnemy = enemy.y + enemy.height
-  const rightEnemy = enemy.x + enemy.width
-  const leftEnemy = enemy.x
+  const upEnemy = enemy.y;
+  const downEnemy = enemy.y + enemy.height;
+  const rightEnemy = enemy.x + enemy.width;
+  const leftEnemy = enemy.x;
 
-  const upPet = petPlayerObject.y
-  const downPet = petPlayerObject.y + petPlayerObject.height
-  const rightPet = petPlayerObject.x + petPlayerObject.width
-  const leftPet = petPlayerObject.x
+  const upPet = petPlayerObject.y;
+  const downPet = petPlayerObject.y + petPlayerObject.height;
+  const rightPet = petPlayerObject.x + petPlayerObject.width;
+  const leftPet = petPlayerObject.x;
 
   if (
     downPet < upEnemy ||
@@ -403,20 +354,17 @@ function checkColision(enemy) {
     rightPet < leftEnemy ||
     leftPet > rightEnemy
   ) {
-    return
+    return;
   }
-  stopMotion()
-  clearInterval(interval)
-  console.log('detectmotion')
-    sectionWatchMap.style.display = 'none'
-    sectionSelectAttack.style.display = 'flex';
-    selectionPetEnemy(enemy);
-
+  stopMotion();
+  clearInterval(interval);
+  console.log('detectmotion');
+  sectionWatchMap.style.display = 'none';
+  sectionSelectAttack.style.display = 'flex';
+  selectionPetEnemy(enemy);
 }
 
 function startMap() {
-  map.width = 320;
-  map.height = 240;
   petPlayerObject = getObjetPet(petPlayer);
   interval = setInterval(paintCanvas, 50);
 

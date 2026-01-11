@@ -205,8 +205,14 @@ input:checked + label {
   justify-content: center;
 }
 
-#map {
-  border: 1px solid white;
+#watch-map button{
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  background: transparent;
+  border: 2px solid var(--primary-color-dark-white);
+  color: var(--primary-color-dark-white);
+  margin: 5px;
 }
 
 
