@@ -23,11 +23,12 @@ const petPlayerLife = document.getElementById('player-pet-life');
 const sectionWatchMap = document.getElementById('watch-map');
 const map = document.getElementById('map');
 
-let attackPlayer = '';
+let attackPlayer = [];
 let attackEnemy = [];
 let result = '';
 
 let mokepones = [];
+let mokeponesEnemy = [];
 let buttons = [];
 let usedAttacksPlayer = [];
 let attacksMokeponEnemy;
@@ -76,13 +77,14 @@ map.width = widthMap;
 map.height = findHeight;
 
 class Mokepon {
-  constructor(name, photo, life, photoMap) {
+  constructor(name, photo, life, photoMap, id = null) {
+    this.id = id;
     this.name = name;
     this.photo = photo;
     this.life = life;
     this.attacks = [];
-    this.width = 60;
-    this.height = 60;
+    this.width = 50;
+    this.height = 50;
     this.x = random(0, map.width - this.width);
     this.y = random(0, map.height - this.height);
     this.mapPhoto = new Image();
@@ -96,177 +98,74 @@ class Mokepon {
   }
 }
 
-let chamaleon = new Mokepon(
-  'Chamaleon',
-  './assets/Chamaleon_attack.png',
-  5,
-  './assets/Chamaleon_attack.png'
-);
-let turtle = new Mokepon(
-  'Turtle',
-  './assets/Turtle_attack.png',
-  5,
-  './assets/Turtle_attack.png'
-);
-let basur = new Mokepon(
-  'Basur',
-  './assets/Basur_attack.png',
-  5,
-  './assets/Basur_attack.png'
-);
-let pydos = new Mokepon(
-  'Pydos',
-  './assets/Pydos_attack.png',
-  5,
-  './assets/Pydos_attack.png'
-);
-let tucapalma = new Mokepon(
-  'Tucapalma',
-  './assets/Tucapalma_attack.png',
-  5,
-  './assets/Tucapalma_attack.png'
-);
-let langosta = new Mokepon(
-  'Langosta',
-  './assets/Langosta_attack.png',
-  5,
-  './assets/Langosta_attack.png'
-);
+let chamaleon = new Mokepon('Chamaleon','./assets/Chamaleon_attack.png',5,'./assets/Chamaleon_attack.png');
+let turtle = new Mokepon('Turtle','./assets/Turtle_attack.png',5,'./assets/Turtle_attack.png');
+let basur = new Mokepon('Basur','./assets/Basur_attack.png',5,'./assets/Basur_attack.png');
+let pydos = new Mokepon('Pydos','./assets/Pydos_attack.png',5,'./assets/Pydos_attack.png');
+let tucapalma = new Mokepon('Tucapalma','./assets/Tucapalma_attack.png',5,'./assets/Tucapalma_attack.png');
+let langosta = new Mokepon('Langosta','./assets/Langosta_attack.png',5,'./assets/Langosta_attack.png');
 
-let chamaleonEnemy = new Mokepon(
-  'Chamaleon',
-  './assets/Chamaleon_attack.png',
-  5,
-  './assets/Chamaleon_attack.png'
-);
-let turtleEnemy = new Mokepon(
-  'Turtle',
-  './assets/Turtle_attack.png',
-  5,
-  './assets/Turtle_attack.png'
-);
-let basurEnemy = new Mokepon(
-  'Basur',
-  './assets/Basur_attack.png',
-  5,
-  './assets/Basur_attack.png'
-);
-let pydosEnemy = new Mokepon(
-  'Pydos',
-  './assets/Pydos_attack.png',
-  5,
-  './assets/Pydos_attack.png'
-);
-let tucapalmaEnemy = new Mokepon(
-  'Tucapalma',
-  './assets/Tucapalma_attack.png',
-  5,
-  './assets/Tucapalma_attack.png'
-);
-let langostaEnemy = new Mokepon(
-  'Langosta',
-  './assets/Langosta_attack.png',
-  5,
-  './assets/Langosta_attack.png'
-);
-
-turtle.attacks.push(
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Ground', id: 'button__ground' }
-);
-
-chamaleon.attacks.push(
+const chamaleonAttacks = [
   { name: 'Fire', id: 'button__fire' },
   { name: 'Fire', id: 'button__fire' },
   { name: 'Fire', id: 'button__fire' },
   { name: 'Water', id: 'button__water' },
-  { name: 'Ground', id: 'button__ground' }
-);
+  { name: 'Ground', id: 'button__ground' },
+];
 
-basur.attacks.push(
+const turtleAttacks = [
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Ground', id: 'button__ground' },
+];
+
+const basurAttacks = [
   { name: 'Ground', id: 'button__ground' },
   { name: 'Ground', id: 'button__ground' },
   { name: 'Ground', id: 'button__ground' },
   { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' }
-);
+  { name: 'Fire', id: 'button__fire' },
+];
+const pydosAttacks = [
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Fire', id: 'button__fire' },
+  { name: 'Water', id: 'button__water' },
+  { name: 'Ground', id: 'button__ground' },
+];
 
-pydos.attacks.push(
+const tucapalmaAttacks = [
   { name: 'Water', id: 'button__water' },
   { name: 'Water', id: 'button__water' },
   { name: 'Water', id: 'button__water' },
   { name: 'Fire', id: 'button__fire' },
-  { name: 'Ground', id: 'button__ground' }
-);
+  { name: 'Ground', id: 'button__ground' },
+];
 
-tucapalma.attacks.push(
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Ground', id: 'button__ground' }
-);
-
-langosta.attacks.push(
+const langostaAttacks = [
   { name: 'Ground', id: 'button__ground' },
   { name: 'Ground', id: 'button__ground' },
   { name: 'Ground', id: 'button__ground' },
   { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' }
-);
+  { name: 'Fire', id: 'button__fire' },
+];
 
-turtleEnemy.attacks.push(
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Ground', id: 'button__ground' }
-);
 
-chamaleonEnemy.attacks.push(
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Ground', id: 'button__ground' }
-);
 
-basurEnemy.attacks.push(
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' }
-);
+turtle.attacks.push(...turtleAttacks);
 
-pydosEnemy.attacks.push(
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Ground', id: 'button__ground' }
-);
+chamaleon.attacks.push(...chamaleonAttacks);
 
-tucapalmaEnemy.attacks.push(
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Fire', id: 'button__fire' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Ground', id: 'button__ground' }
-);
+basur.attacks.push(...basurAttacks);
 
-langostaEnemy.attacks.push(
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Ground', id: 'button__ground' },
-  { name: 'Water', id: 'button__water' },
-  { name: 'Fire', id: 'button__fire' }
-);
+pydos.attacks.push(...pydosAttacks);
 
-// test
+tucapalma.attacks.push(...tucapalmaAttacks);
+
+langosta.attacks.push(...langostaAttacks);
+
 mokepones.push(chamaleon, turtle, basur, pydos, tucapalma, langosta);
 
 function startGame() {
@@ -313,13 +212,14 @@ function startGame() {
 }
 
 function joinGame() {
-  fetch('http://localhost:8080/join').then(function (res) {
+  fetch('http://localhost:8080/join')
+  .then(function (res) {
     // console.log(res);
-
     if (res.ok) {
-      res.text().then(function (respuesta) {
-        console.log(respuesta);
-        playerId = respuesta;
+      res.text()
+        .then(function (respuesta) {
+          console.log(respuesta);
+          playerId = respuesta;
       });
     }
   });
@@ -378,7 +278,7 @@ function selectPet(petPlayer) {
   fetch(`http://localhost:8080/mokepon/${playerId}`, {
     method: 'post',
     headers: {
-      'content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       mokepon: petPlayer,
@@ -393,21 +293,67 @@ function paintCanvas() {
   lienzo.drawImage(mapBackground, 0, 0, map.width, map.height);
 
   petPlayerObject.paintMokepon();
-  chamaleonEnemy.paintMokepon();
-  turtleEnemy.paintMokepon();
-  basurEnemy.paintMokepon();
-  tucapalmaEnemy.paintMokepon();
-  langostaEnemy.paintMokepon();
-  pydosEnemy.paintMokepon();
 
-  if (petPlayerObject.velX !== 0 || petPlayerObject.velY !== 0) {
-    checkColision(chamaleonEnemy);
-    checkColision(turtleEnemy);
-    checkColision(basurEnemy);
-    checkColision(tucapalmaEnemy);
-    checkColision(langostaEnemy);
-    checkColision(pydosEnemy);
+  sendPosition(petPlayerObject.x, petPlayerObject.y);
+
+ mokeponesEnemy.forEach(function (mokepon) {
+    if (mokepon !== null) { // <--- Importante: Verificar que no sea null
+      mokepon.paintMokepon();
+      checkColision(mokepon);
+}})
   }
+
+
+function sendPosition(x, y) {
+  fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      x,
+      y,
+    }),
+  })
+  .then(function (res) {
+    if (res.ok) {
+      res.json()
+      .then(function ({ enemies }) {
+        console.log(enemies);
+        mokeponesEnemy = enemies.map(function (enemy) {
+          let mokeponEnemy = null
+          if (enemy.mokepon !== undefined) {
+            const mokeponName = enemy.mokepon.name || "";
+          if(mokeponName === 'Chamaleon'){
+            mokeponEnemy = new Mokepon('Chamaleon','./assets/Chamaleon_attack.png',5,'./assets/Chamaleon_attack.png');
+          } else if( mokeponName === 'Turtle' ) {
+            mokeponEnemy = new Mokepon('Turtle','./assets/Turtle_attack.png',5,'./assets/Turtle_attack.png');
+
+          } else if( mokeponName === 'Basur' ) {
+            mokeponEnemy = new Mokepon('Basur','./assets/Basur_attack.png',5,'./assets/Basur_attack.png');
+
+          } else if( mokeponName === 'Pydos' ) {
+            mokeponEnemy = new Mokepon('Pydos','./assets/Pydos_attack.png',5,'./assets/Pydos_attack.png');
+
+          } else if( mokeponName === 'Tucapalma' ) {
+            mokeponEnemy = new Mokepon('Tucapalma','./assets/Tucapalma_attack.png',5,'./assets/Tucapalma_attack.png');
+
+          } else if( mokeponName === 'Langosta' ) {
+            mokeponEnemy = new Mokepon('Langosta','./assets/Langosta_attack.png',5,'./assets/Langosta_attack.png');
+
+          } 
+
+        if (mokeponEnemy !== null) {
+          mokeponEnemy.x = enemy.x;
+          mokeponEnemy.y = enemy.y;
+        }
+      }
+          return mokeponEnemy
+        })
+
+      });
+    }
+  });
 }
 
 function moveMokeponUp() {
@@ -457,7 +403,7 @@ function checkColision(enemy) {
 
 function startMap() {
   petPlayerObject = getObjetPet(petPlayer);
-  interval = setInterval(paintCanvas, 50);
+  interval = setInterval(paintCanvas, 100);
 
   window.addEventListener('keydown', pressKey);
   window.addEventListener('keyup', stopMotion);
@@ -553,9 +499,24 @@ function secuenceAttacks() {
         button.style.background = 'gray';
         button.disabled = true;
       }
-      randomAttackEnemy();
+      // randomAttackEnemy();
+      if (usedAttacksPlayer.length === 5) {
+        sendAttacks()
+      }
     });
   });
+}
+
+function sendAttacks() {
+  fetch(`http://localhost:8080/mokepon/${playerId}/attacks`,{
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+      attacks: usedAttacksPlayer
+    })
+  })
 }
 
 function selectionPetEnemy(enemy) {
