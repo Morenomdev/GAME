@@ -126,9 +126,9 @@ class Mokepon {
 let chamaleon = new Mokepon('Chamaleon','assets/Chamaleon_attack.png',5,'assets/Chamaleon_attack.png');
 let turtle = new Mokepon('Turtle','assets/Turtle_attack.png',5,'assets/Turtle_attack.png');
 let basur = new Mokepon('Basur','assets/Basur_attack.png',5,'assets/Basur_attack.png');
-let pydos = new Mokepon('Pydos','assets/Pydos_attack.png',5,'assets/Pydos_attack.png');
-let tucapalma = new Mokepon('Tucapalma','assets/Tucapalma_attack.png',5,'assets/Tucapalma_attack.png');
-let langosta = new Mokepon('Langosta','assets/Langosta_attack.png',5,'assets/Langosta_attack.png');
+let pydos = new Mokepon('Pydos','assets/pydos_attack.png',5,'assets/pydos_attack.png');
+let tucapalma = new Mokepon('Tucapalma','assets/tucapalma_attack.png',5,'assets/tucapalma_attack.png');
+let langosta = new Mokepon('Langosta','assets/langosta_attack.png',5,'assets/langosta_attack.png');
 
 // Listas de ataques permitidos para cada mokepon
 const chamaleonAttacks = [
@@ -241,7 +241,7 @@ function joinGame() {
     if (res.ok) {
       res.text()
         .then(function (respuesta) {
-          console.log(respuesta);
+          // console.log(respuesta);
           playerId = respuesta;
       });
     }
@@ -353,7 +353,7 @@ function sendPosition(x, y) {
     if (res.ok) {
       res.json()
       .then(function ({ enemies }) {
-        console.log(enemies);
+        // console.log(enemies);
         // Se reconstruye la lista de enemigos con sus datos y posiciones
         mokeponesEnemy = enemies.map(function (enemy) {
           let mokeponEnemy = null
@@ -525,17 +525,17 @@ function secuenceAttacks() {
       // Segun el texto del boton se guarda el tipo de ataque
       if (e.target.textContent === 'Fire') {
         usedAttacksPlayer.push('Fire');
-        console.log(usedAttacksPlayer);
+        // console.log(usedAttacksPlayer);
         button.style.background = 'gray';
         button.disabled = true;
       } else if (e.target.textContent === 'Water') {
         usedAttacksPlayer.push('Water');
-        console.log(usedAttacksPlayer);
+        // console.log(usedAttacksPlayer);
         button.style.background = 'gray';
         button.disabled = true;
       } else if (e.target.textContent === 'Ground') {
         usedAttacksPlayer.push('Ground');
-        console.log(usedAttacksPlayer);
+        // console.log(usedAttacksPlayer);
         button.style.background = 'gray';
         button.disabled = true;
       }
@@ -603,7 +603,7 @@ function randomAttackEnemy() {
   } else {
     attackEnemy.push('Ground');
   }
-  console.log(attackEnemy);
+  // console.log(attackEnemy);
   startBattle();
 }
 
