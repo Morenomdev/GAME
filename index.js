@@ -4,6 +4,8 @@ const cors = require('cors');
 //instance
 const app = express();
 
+app.use(express.static('public'));
+
 //disable error with cors
 app.use(cors());
 //enable json
