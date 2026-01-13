@@ -28,11 +28,18 @@ class Player {
     this.attacks = attacks
   }
 }
+class Mokepon {
+  constructor(name) {
+    this.name = name;
+  }
+}
+
 
 app.get('/join', (req, res) => {
   const id = `${Math.random()}`;
   const player = new Player(id);
   players.push(player);
+  res.setHeader("Access-Control-Allow-Origin", "*")
   res.send(id);
 });
 
@@ -62,7 +69,13 @@ app.post('/mokepon/:playerId/position', (req, res) => {
     players[playerIndex].updatePosition(x, y);
   }
 
-  const enemies = players.filter((player) => playerId !== player.id);
+  // const enemies = players.filter((player) => playerId !== player.id);
+   const enemies = players.filter(player =>
+    player.id !== playerId &&
+    player.mokepon &&          // tiene mascota
+    typeof player.x === 'number' &&
+    typeof player.y === 'number'
+  );
   res.send({
     enemies
   })
@@ -81,11 +94,16 @@ app.post('/mokepon/:playerId/attacks', (req, res) => {
   res.end()
 });
 
-class Mokepon {
-  constructor(name) {
-    this.name = name;
-  }
-}
+
+app.get('/mokepon/:playerId/attacks', (req, res) => {
+    const playerId = req.params.playerId || '';
+    const player = players.find((player) => player.id === playerId)
+
+    res.send({
+      attacks: player.attacks || []
+    })
+})
+
 
 //listen petitions
 app.listen(8080, () => {
