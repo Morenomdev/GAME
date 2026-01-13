@@ -74,7 +74,7 @@ let buttonGround;
 let lienzo = map.getContext('2d');
 let interval;
 let mapBackground = new Image();
-mapBackground.src = './assets/mokemap.png';
+mapBackground.src = 'assets/mokemap.png';
 
 // Calculo de tamanos del mapa en funcion del ancho de ventana
 let findHeight;
@@ -123,12 +123,12 @@ class Mokepon {
 }
 
 // Instancias de cada mokepon disponible en el juego
-let chamaleon = new Mokepon('Chamaleon','./assets/Chamaleon_attack.png',5,'./assets/Chamaleon_attack.png');
-let turtle = new Mokepon('Turtle','./assets/Turtle_attack.png',5,'./assets/Turtle_attack.png');
-let basur = new Mokepon('Basur','./assets/Basur_attack.png',5,'./assets/Basur_attack.png');
-let pydos = new Mokepon('Pydos','./assets/Pydos_attack.png',5,'./assets/Pydos_attack.png');
-let tucapalma = new Mokepon('Tucapalma','./assets/Tucapalma_attack.png',5,'./assets/Tucapalma_attack.png');
-let langosta = new Mokepon('Langosta','./assets/Langosta_attack.png',5,'./assets/Langosta_attack.png');
+let chamaleon = new Mokepon('Chamaleon','assets/Chamaleon_attack.png',5,'assets/Chamaleon_attack.png');
+let turtle = new Mokepon('Turtle','assets/Turtle_attack.png',5,'assets/Turtle_attack.png');
+let basur = new Mokepon('Basur','assets/Basur_attack.png',5,'assets/Basur_attack.png');
+let pydos = new Mokepon('Pydos','assets/Pydos_attack.png',5,'assets/Pydos_attack.png');
+let tucapalma = new Mokepon('Tucapalma','assets/Tucapalma_attack.png',5,'assets/Tucapalma_attack.png');
+let langosta = new Mokepon('Langosta','assets/Langosta_attack.png',5,'assets/Langosta_attack.png');
 
 // Listas de ataques permitidos para cada mokepon
 const chamaleonAttacks = [
@@ -359,17 +359,17 @@ function sendPosition(x, y) {
           let mokeponEnemy = null
           const mokeponName = enemy.mokepon.name || "";
           if(mokeponName === 'Chamaleon'){
-            mokeponEnemy = new Mokepon('Chamaleon','./assets/Chamaleon_attack.png',5,'./assets/Chamaleon_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Chamaleon','assets/Chamaleon_attack.png',5,'assets/Chamaleon_attack.png', enemy.id);
           } else if( mokeponName === 'Turtle' ) {
-            mokeponEnemy = new Mokepon('Turtle','./assets/Turtle_attack.png',5,'./assets/Turtle_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Turtle','assets/Turtle_attack.png',5,'assets/Turtle_attack.png', enemy.id);
           } else if( mokeponName === 'Basur' ) {
-            mokeponEnemy = new Mokepon('Basur','./assets/Basur_attack.png',5,'./assets/Basur_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Basur','assets/Basur_attack.png',5,'assets/Basur_attack.png', enemy.id);
           } else if( mokeponName === 'Pydos' ) {
-            mokeponEnemy = new Mokepon('Pydos','./assets/Pydos_attack.png',5,'./assets/Pydos_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Pydos','assets/Pydos_attack.png',5,'assets/Pydos_attack.png', enemy.id);
           } else if( mokeponName === 'Tucapalma' ) {
-            mokeponEnemy = new Mokepon('Tucapalma','./assets/Tucapalma_attack.png',5,'./assets/Tucapalma_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Tucapalma','assets/Tucapalma_attack.png',5,'assets/Tucapalma_attack.png', enemy.id);
           } else if( mokeponName === 'Langosta' ) {
-            mokeponEnemy = new Mokepon('Langosta','./assets/Langosta_attack.png',5,'./assets/Langosta_attack.png', enemy.id);
+            mokeponEnemy = new Mokepon('Langosta','assets/Langosta_attack.png',5,'assets/Langosta_attack.png', enemy.id);
           } 
 
           // Se actualiza la posicion del enemigo con la recibida del servidor
