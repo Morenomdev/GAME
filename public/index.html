@@ -39,13 +39,41 @@
       <section id="watch-map">
         <h2 id="main-title" class="title">MAP MOKEPON</h2>
         <canvas id="map"></canvas>
-        <button onmouseup="stopMotion()" onmousedown="moveMokeponUp()">Up</button>
+        <button
+          onmouseup="stopMotion()"
+          onmousedown="moveMokeponUp()"
+          ontouchstart="moveMokeponUp()"
+          ontouchend="stopMotion()"
+        >
+          Up
+        </button>
         <div>
-          <button onmouseup="stopMotion()" onmousedown="moveMokeponLeft()">Left</button>
-          <button onmouseup="stopMotion()" onmousedown="moveMokeponRight()">Right</button>
+          <button
+            onmouseup="stopMotion()"
+            onmousedown="moveMokeponLeft()"
+            ontouchstart="moveMokeponLeft()"
+            ontouchend="stopMotion()"
+          >
+            Left
+          </button>
+          <button
+            onmouseup="stopMotion()"
+            onmousedown="moveMokeponRight()"
+            ontouchstart="moveMokeponRight()"
+            ontouchend="stopMotion()"
+          >
+            Right
+          </button>
         </div>
-        <button onmouseup="stopMotion()" onmousedown="moveMokeponDown()">Down</button>
-        </section>
+        <button
+          onmouseup="stopMotion()"
+          onmousedown="moveMokeponDown()"
+          ontouchstart="moveMokeponDown()"
+          ontouchend="stopMotion()"
+        >
+          Down
+        </button>
+      </section>
 
       <section id="select-attack">
         <h2 class="subtitle-pet">Chose your attack:</h2>
@@ -62,7 +90,7 @@
             <button id="button-reset" class="button__reset">RESET</button>
           </section>
         </div>
-        
+
         <div id="card-attack-div">
           <div id="card-player-attack" class="">
             <p id="player-pet-life"></p>
