@@ -1,48 +1,40 @@
 const express = require('express');
 const cors = require('cors');
 
-// Se crea la aplicacion principal del servidor
+//instance
 const app = express();
 
-// Permite que el navegador acepte peticiones desde el frontend
+//disable error with cors
 app.use(cors());
-// Permite recibir datos en formato json del cliente
+//enable json
 app.use(express.json());
 
-// Lista donde se guardan todos los jugadores conectados
 const players = [];
 
-// Clase que representa a cada jugador que se conecta
 class Player {
   constructor(id) {
     this.id = id;
   }
 
-  // Guarda la mascota que elige el jugador
   asignMokepon(mokepon) {
     this.mokepon = mokepon;
   }
 
-  // Actualiza la posicion del jugador en el mapa
   updatePosition(x, y) {
     this.x = x;
     this.y = y;
   }
-  
-  // Guarda los ataques que elige el jugador para la batalla
   asignAttacks(attacks) {
     this.attacks = attacks
   }
 }
-
-// Clase simple para representar la mascota de cada jugador
 class Mokepon {
   constructor(name) {
     this.name = name;
   }
 }
 
-// Cuando un jugador nuevo quiere entrar al juego
+
 app.get('/join', (req, res) => {
   const id = `${Math.random()}`;
   const player = new Player(id);
@@ -51,16 +43,13 @@ app.get('/join', (req, res) => {
   res.send(id);
 });
 
-// Cuando el jugador ya eligio su mascota y la manda al servidor
 app.post('/mokepon/:playerId', (req, res) => {
   const playerId = req.params.playerId || '';
   const name = req.body.mokepon || '';
   const mokepon = new Mokepon(name);
 
-  // Busca al jugador en la lista por su id
   const playerIndex = players.findIndex((player) => playerId === player.id);
 
-  // Si lo encuentra le asigna la mascota
   if (playerIndex >= 0) {
     players[playerIndex].asignMokepon(mokepon);
   }
@@ -69,40 +58,33 @@ app.post('/mokepon/:playerId', (req, res) => {
   res.end();
 });
 
-// Cuando el jugador se mueve en el mapa y manda su nueva posicion
 app.post('/mokepon/:playerId/position', (req, res) => {
   const playerId = req.params.playerId || '';
   const x = req.body.x || 0;
   const y = req.body.y || 0;
 
-  // Busca al jugador en la lista
   const playerIndex = players.findIndex((player) => playerId === player.id);
 
-  // Actualiza su posicion
   if (playerIndex >= 0) {
     players[playerIndex].updatePosition(x, y);
   }
 
-  // Encuentra a todos los demas jugadores que son "enemigos"
-  const enemies = players.filter(player =>
+  // const enemies = players.filter((player) => playerId !== player.id);
+   const enemies = players.filter(player =>
     player.id !== playerId &&
-    player.mokepon &&          // que ya hayan elegido mascota
+    player.mokepon &&          // tiene mascota
     typeof player.x === 'number' &&
     typeof player.y === 'number'
   );
-  
-  // Manda la lista de enemigos de vuelta al jugador
   res.send({
     enemies
   })
 });
 
-// Cuando el jugador termino de elegir sus 5 ataques
 app.post('/mokepon/:playerId/attacks', (req, res) => {
   const playerId = req.params.playerId || '';
   const attacks = req.body.attacks || [];
 
-  // Busca al jugador y le guarda sus ataques
   const playerIndex = players.findIndex((player) => playerId === player.id);
 
   if (playerIndex >= 0) {
@@ -112,18 +94,18 @@ app.post('/mokepon/:playerId/attacks', (req, res) => {
   res.end()
 });
 
-// Cuando un jugador pregunta por los ataques del enemigo
+
 app.get('/mokepon/:playerId/attacks', (req, res) => {
     const playerId = req.params.playerId || '';
     const player = players.find((player) => player.id === playerId)
 
-    // Devuelve los ataques de ese jugador (enemigo para el otro)
     res.send({
       attacks: player.attacks || []
     })
 })
 
-// El servidor escucha en el puerto 8080
+
+//listen petitions
 app.listen(8080, () => {
   console.log('server working');
 });
