@@ -235,7 +235,8 @@ function startGame() {
 
 // Solicita al backend un id de jugador para identificar la sesion
 function joinGame() {
-  fetch('http://localhost:8080/join')
+  // fetch('http://localhost:8080/join')
+  fetch('/join')
   .then(function (res) {
     if (res.ok) {
       res.text()
@@ -301,7 +302,8 @@ function selectionPetPlayer() {
 
 // Envia al backend el nombre del mokepon elegido para asociarlo al jugador
 function selectPet(petPlayer) {
-  fetch(`http://localhost:8080/mokepon/${playerId}`, {
+  // fetch(`http://localhost:8080/mokepon/${playerId}`, {
+  fetch(`/mokepon/${playerId}`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -336,7 +338,8 @@ function paintCanvas() {
 
 // Envia al servidor la posicion actual del jugador y recibe la de los enemigos
 function sendPosition(x, y) {
-  fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+  // fetch(`http://localhost:8080/mokepon/${playerId}/position`, {
+  fetch(`/mokepon/${playerId}/position`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
@@ -546,7 +549,8 @@ function secuenceAttacks() {
 
 // Envia al backend la lista de ataques seleccionados por el jugador
 function sendAttacks() {
-  fetch(`http://localhost:8080/mokepon/${playerId}/attacks`,{
+  // fetch(`http://localhost:8080/mokepon/${playerId}/attacks`,{
+  fetch(`/mokepon/${playerId}/attacks`,{
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -561,7 +565,8 @@ function sendAttacks() {
 
 // Consulta periodicamente los ataques del enemigo hasta que tenga cinco
 function getAttackks() {
-  fetch(`http://localhost:8080/mokepon/${enemyId}/attacks`)
+  // fetch(`http://localhost:8080/mokepon/${enemyId}/attacks`)
+  fetch(`/mokepon/${enemyId}/attacks`)
   .then(function (res) {
     if(res.ok) {
       res.json()
