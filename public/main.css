@@ -215,6 +215,10 @@ input:checked + label {
   margin: 5px;
 }
 
+button {
+  user-select: none;
+}
+
 
 @media (max-width: 400px) {
   .cards {
